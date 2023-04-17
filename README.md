@@ -1,6 +1,5 @@
-<p align="center">
-  Hardik Gadhiya
-</p>
+## Hardik Gadhiya
+<p>-------------------------------------------------------------------</p>
 
 ## Description
 
