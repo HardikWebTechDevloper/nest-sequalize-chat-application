@@ -18,6 +18,13 @@ import { GroupService } from 'src/services/group/group.service';
 export class GroupController {
     constructor(private groupService: GroupService) { }
 
+    /**
+     * @description Create group and add member inside group
+     * @param {*} req
+     * @param {*} file
+     * @param {*} res
+     * @memberof GroupController
+     */
     @UseGuards(AuthGuard)
     @Post('create')
     @UseInterceptors(FileInterceptor('icon'))
@@ -26,10 +33,9 @@ export class GroupController {
             try {
                 let { group_name, group_users } = req.body;
                 let groupIcon = (file) ? file.filename : null;
-
-                group_users = [1, 2, 4];
+                
                 group_users = (group_users) ? Array.from(group_users) : [];
-
+                
                 let group = await this.groupService.createGroup({
                     name: group_name,
                     icon: groupIcon
@@ -47,7 +53,6 @@ export class GroupController {
                         });
 
                         let isCreated = await this.groupService.createGroupMember(userGroup);
-                        console.log(isCreated);
 
                         if (isCreated && isCreated.length > 0) {
                             return res.json(apiResponse(HttpStatus.OK, 'Woohoo! Your group has been successfully created', {}, true));
