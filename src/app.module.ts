@@ -17,6 +17,8 @@ import { GroupModule } from './models/group/group.module';
 import { Group } from './models/group/group.model';
 import { GroupMemberModule } from './models/group-member/group-member.module';
 import { GroupMember } from './models/group-member/group-member.model';
+import { UserController } from './controllers/user/user.controller';
+import { AppGateway } from './app.gateway';
 
 // File upload
 const storage = diskStorage({
@@ -56,7 +58,7 @@ const storage = diskStorage({
     GroupModule,
     GroupMemberModule,
   ],
-  controllers: [AppController, AuthController, GroupController],
-  providers: [AppService, UserService, AuthService, GroupService],
+  controllers: [AppController, AuthController, GroupController, UserController],
+  providers: [AppService, UserService, AuthService, GroupService, AppGateway],
 })
 export class AppModule { }

@@ -15,6 +15,7 @@ export class UserService {
 
     findOne(id: Number): Promise<User> {
         return this.userModel.findOne({
+            attributes: ['id', 'firstName', 'lastName', 'email', 'profilePicture'],
             where: {
                 id,
             },

@@ -84,7 +84,14 @@ export class AuthController {
 
     @UseGuards(AuthGuard)
     @Get('profile')
-    getProfile(@Req() req) {
-        return req.user;
+    getProfile(@Req() req, @Res() res) {
+        (async () => {
+            try {
+                let user = await this.userService.findOne(req.user.userId);
+                return res.json(apiResponse(HttpStatus.OK, 'sucess', user, true));
+            } catch (error) {
+                return res.json(apiResponse(HttpStatus.BAD_GATEWAY, error.message, {}, false));
+            }
+        })();
     }
 }
