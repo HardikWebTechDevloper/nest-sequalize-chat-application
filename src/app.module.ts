@@ -52,7 +52,8 @@ const storage = diskStorage({
     MulterModule.register({ storage }),
     JwtModule.register({
       global: true,
-      secret: process.env.JWT_SECRET,
+      // secret: process.env.JWT_SECRET,
+      secret: "social_app_db",
       signOptions: { expiresIn: '7200s' },
     }),
     GroupModule,
