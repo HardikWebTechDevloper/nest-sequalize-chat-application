@@ -51,8 +51,7 @@ export class AppGateway implements OnGatewayInit, OnGatewayConnection, OnGateway
   }
 
   @SubscribeMessage('groupUserTyping')
-  handleGroupUserJoinedEvent(client: Socket, payload: { data: any }) {
-    const { data } = payload;
+  handleGroupUserJoinedEvent(client: Socket, data: any) {
     client.broadcast.emit('userGroupTypings', data);
   }
 
