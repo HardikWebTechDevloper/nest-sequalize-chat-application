@@ -1,5 +1,3 @@
-// app.gateway.ts
-
 import { WebSocketGateway, WebSocketServer, SubscribeMessage, OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
 
@@ -32,7 +30,7 @@ export class AppGateway implements OnGatewayInit, OnGatewayConnection, OnGateway
   }
 
 
-  @SubscribeMessage('singleUserJoined')
+  @SubscribeMessage('joinSingleChat')
   handleSingleChatJoinedEvent(client: Socket, payload: { chatUser: string }) {
     const { chatUser } = payload;
     this.users[client.id] = chatUser;
@@ -46,6 +44,17 @@ export class AppGateway implements OnGatewayInit, OnGatewayConnection, OnGateway
     this.server.emit('sendMessage', { chatUser, message, id, name, groupId });
   }
 
+  @SubscribeMessage('userTyping')
+  handleUserTypeJoinedEvent(client: Socket, payload: { isTyping: boolean, userName: string, values: any }) {
+    const { isTyping, userName, values } = payload;
+    client.broadcast.emit('userTypings', { isTyping, userName, values });
+  }
+
+  @SubscribeMessage('groupUserTyping')
+  handleGroupUserJoinedEvent(client: Socket, payload: { data: any }) {
+    const { data } = payload;
+    client.broadcast.emit('userGroupTypings', { data });
+  }
 
   @SubscribeMessage('singleMessage')
   handleSingleMessageEvent(client: Socket, payload: { message: string, id: string, name: string, userId: number, loginUserId: number }) {
