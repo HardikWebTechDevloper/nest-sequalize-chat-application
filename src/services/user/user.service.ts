@@ -15,7 +15,7 @@ export class UserService {
 
     findOne(id: Number): Promise<User> {
         return this.userModel.findOne({
-            attributes: ['id', 'firstName', 'lastName', 'email', 'profilePicture'],
+            attributes: ['id', 'firstName', 'lastName', 'email', 'phone', 'profilePicture'],
             where: {
                 id,
             },
@@ -48,6 +48,11 @@ export class UserService {
 
     createUser(body: {}) {
         let result = this.userModel.create(body);
+        return result;
+    }
+
+    updateUser(id: Number, body: {}) {
+        let result = this.userModel.update(body, { where: { id } });
         return result;
     }
 }
