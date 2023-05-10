@@ -45,8 +45,7 @@ export class AppGateway implements OnGatewayInit, OnGatewayConnection, OnGateway
   }
 
   @SubscribeMessage('userTyping')
-  handleUserTypeJoinedEvent(client: Socket, payload: { isTyping: boolean, userName: string, ids: number }) {
-    const { isTyping, userName, ids } = payload;
+  handleUserTypeJoinedEvent(client: Socket, isTyping: boolean, userName: string, ids: number) {
     client.broadcast.emit('userTypings', { isTyping, userName, ids });
   }
 

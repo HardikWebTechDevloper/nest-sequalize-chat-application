@@ -19,6 +19,7 @@ import { GroupMemberModule } from './models/group-member/group-member.module';
 import { GroupMember } from './models/group-member/group-member.model';
 import { UserController } from './controllers/user/user.controller';
 import { AppGateway } from './app.gateway';
+import { PeerService } from './services/peer/peer.service';
 
 // File upload
 const storage = diskStorage({
@@ -41,12 +42,12 @@ const storage = diskStorage({
       dialect: 'postgres',
       host: "127.0.0.1",
       port: 5432,
-      // username: "postgres",
-      // password: "admin",
-      // database: "social_app_db",
-      username: "avcuser",
-      password: "avcpass",
-      database: "avcdb",
+      username: "postgres",
+      password: "admin",
+      database: "social_app_db",
+      // username: "avcuser",
+      // password: "avcpass",
+      // database: "avcdb",
       models: [User, Group, GroupMember],
       // autoLoadModels: true,
       // synchronize: true,
@@ -63,6 +64,6 @@ const storage = diskStorage({
     GroupMemberModule,
   ],
   controllers: [AppController, AuthController, GroupController, UserController],
-  providers: [AppService, UserService, AuthService, GroupService, AppGateway],
+  providers: [AppService, UserService, AuthService, GroupService, AppGateway, PeerService],
 })
 export class AppModule { }
